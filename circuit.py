@@ -1,6 +1,17 @@
 import numpy as np
 
-class Circuit:
+
+
+
+
+class Circuit: 
+    '''
+
+    Class for that generates N-dimensional gates acting of arbitatry qubit.
+    Gates - Pauli Rotation, H, X, RY, RX, RZ and CNOT.
+    Also generates the zero N-dimensional state.
+
+    '''
 
     def __init__(self, nqubits):
         self.nqubits = nqubits

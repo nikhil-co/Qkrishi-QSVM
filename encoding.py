@@ -16,6 +16,11 @@ def coding_bits(b):
     return coding_0
 
 class CircuitConversor:
+    
+    '''
+    ## Decodes strings of bits into a an array representating the state.
+    __call__ function takes in a string of bits and returns the state and the cost to apply operations.
+    '''
 
     def __init__(self, nqubits, nparameters):
         self.gates = gates = {}
