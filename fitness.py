@@ -33,6 +33,9 @@ def Dataset(X, y, test_size_split=0.2):
     return train_sample, train_label, test_sample, test_label
 
 class Fitness:
+    '''
+    This class calculates the fitness of the whole population and return its cost and accuracy 
+    '''
 
     def __init__(self, nqubits, nparameters, X, y, debug=False):
         self.nqubits = nqubits
