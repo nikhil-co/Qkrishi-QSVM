@@ -12,6 +12,11 @@ def metricas_modelos(y_true, y_pred):
     accuracy = accuracy_score(y_true, y_pred)
     return(accuracy)
 
+def reca(y_true, y_pred):
+    from sklearn.metrics import recall_score
+    recall = recall_score(y_true,y_pred,average='binary')
+    return(recall)
+
 def Dataset(X, y, test_size_split=0.2):
     class_labels = [r'0', r'1']
 
@@ -57,10 +62,11 @@ class Fitness:
                           training_features, training_labels)
         y_pred = model.predict(test_features) # 22% del computo (ver abajo line-profiler)
         acc = metricas_modelos(test_labels, y_pred) # sklearn
+        rec = reca(test_labels,y_pred)
         POP=''.join(str(i) for i in POP)
         _, gates = self.cc(POP, training_features[:,[0,1]])
         if self.debug:
-            print(f'String: {POP}\n -> accuracy = {acc}, gates = {gates}')
+            print(f'String: {POP}\n -> accuracy = {acc}, gates = {gates},recall ={rec}')
         gate = gates/self.nqubits
         wc = gate + (gate*(acc**2))
         return wc, acc #
