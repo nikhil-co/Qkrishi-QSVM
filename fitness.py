@@ -34,7 +34,7 @@ def Dataset(X, y, test_size_split=0.2):
 
 class Fitness:
     '''
-    This class calculates the fitness of the whole population and return its cost and accuracy 
+    This class calculates the fitness of a single bit string and return its cost and accuracy 
     '''
 
     def __init__(self, nqubits, nparameters, X, y, debug=False):
@@ -52,6 +52,7 @@ class Fitness:
         #Convertimos el individuo en el fenotipo (ansatz)
         training_features, training_labels, test_features, test_labels = \
             Dataset(self.X, self.y)
+        
         model = qsvm.QSVM(lambda parameters: self.cc(POP, parameters)[0],
                           training_features, training_labels)
         y_pred = model.predict(test_features) # 22% del computo (ver abajo line-profiler)
