@@ -66,7 +66,7 @@ class Fitness:
         POP=''.join(str(i) for i in POP)
         _, gates = self.cc(POP, training_features[:,[0,1]])
         if self.debug:
-            print(f'String: {POP}\n -> accuracy = {acc}, gates = {gates},recall ={rec}')
+            print(f'String: {POP}\n -> accuracy = {acc}, gates = {gates},recall = {rec}')
         gate = gates/self.nqubits
         wc = gate + (gate*(acc**2))
         return wc, acc #
