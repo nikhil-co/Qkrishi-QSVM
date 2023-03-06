@@ -69,4 +69,4 @@ class Fitness:
             print(f'String: {POP}\n -> accuracy = {acc}, gates = {gates},recall = {rec}')
         gate = gates/self.nqubits
         wc = gate + (gate*(acc**2))
-        return wc, acc #
+        return wc, acc

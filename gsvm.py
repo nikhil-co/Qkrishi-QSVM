@@ -7,7 +7,6 @@ def gsvm(nqubits, depth, nparameters, X, y,
          mu=100, lambda_=150, cxpb=0.7, mutpb=0.3, ngen=2000,
          use_pareto=True, verbose=True, weights=[-1.0,1.0],
          debug=True):
-    print('multi')
     bits_puerta = 5
     long_cadena = depth * nqubits * bits_puerta
     creator.create("FitnessMulti", base.Fitness, weights=weights)
