@@ -9,12 +9,12 @@ import gsvm
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, recall_score, accuracy_score
 
 
-nqubits = 3
-depth = 3
+nqubits = 6
+depth = 6
 output="bank_testdata.csv"
 df = pd.read_csv('bank_cleaned.csv')
 
-bank_data = df.sample(n=20000)#,random_state=1)
+bank_data = df.sample(n=4000)#,random_state=1)
 #bank_data = np.around(bank_data)
 
 y = bank_data['y'].values
@@ -24,7 +24,7 @@ start = time.time()
 
 pop, pareto, logbook = gsvm.gsvm(nqubits=nqubits, depth=depth, nparameters=2,
                                     X=X, y=y, weights=[-1.0,1.0],
-                                    mu=10,lambda_=5,ngen=5,mutpb=0.25,cxpb=.75)
+                                    mu=20,lambda_=10,ngen=20,mutpb=0.25,cxpb=.75)
 sim_time = time.time()
 
 print(f'Simulation finished after {sim_time-start} seconds')
@@ -53,15 +53,14 @@ iot_salidas = ordenar_salidas_pareto(iot_result)
 def featuremap_performance(pop:str,nqubits:int) -> None:
     '''Returns the performance of a feature map on all of the dataset'''
 
-    df = pd.read_csv('bank_cleaned.csv')
-    df = df.sample(frac=1)
+    df_1 = df.sample(frac=1)
     # bank_data = df.sample(n = 10000)
 
     for i in range(4):
         if i == 7:
-            bank_data = df.iloc[60000:79844]
+            bank_data = df_1.iloc[60000:79844]
             break
-        bank_data = df.iloc[i*20000:i*20000+20000]
+        bank_data = df_1.iloc[i*20000:i*20000+20000]
 
         y = bank_data['y'].values
         X = bank_data[['age','job','marital','education','default','balance',
@@ -72,13 +71,12 @@ def featuremap_performance(pop:str,nqubits:int) -> None:
 
         training_features, training_labels, test_features, test_labels = fitness.Dataset(X,y)
 
-        model = qsvm.QSVM(lambda parameters: fitness_obj.cc(pop, parameters)[0],training_features,training_labels)#fitness_obj(pop)
+        model = qsvm.QSVM(lambda parameters: fitness_obj.cc(pop, parameters)[0],training_features,training_labels)
 
         y_pred = model.predict(test_features)
 
         cm = confusion_matrix(test_labels, y_pred)
 
-        #cm_display = ConfusionMatrixDisplay(cm).plot()
         ConfusionMatrixDisplay.from_predictions(test_labels, y_pred)
         plt.show()
         recall = recall_score(test_labels, y_pred)
@@ -88,9 +86,9 @@ def featuremap_performance(pop:str,nqubits:int) -> None:
         
     return None
 
-print(f'Performance testing finished after {time.time()-start} seconds')
-featuremap_performance(iot_salidas.circ[0],nqubits)
 
+featuremap_performance(iot_salidas.circ[0],nqubits)
+print(f'Performance testing finished after {time.time()-start} seconds')
 
 gen = logbook.select("gen")
 wc = logbook.chapters["wc"].select("min")
