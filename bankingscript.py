@@ -9,20 +9,19 @@ import gsvm
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, recall_score, accuracy_score
 
 
-nqubits = 6
+nqubits = 8
 depth = 6
 output="bank_testdata.csv"
 df = pd.read_csv('bank_cleaned.csv')
 
-bank_data = df.sample(n=4000)#,random_state=1)
-#bank_data = np.around(bank_data)
+bank_data = df.sample(n=2000)
 
 y = bank_data['y'].values
 X = bank_data[['age','job','marital','education','default','balance','housing','loan','contact',
                 'day','month','duration','campaign','pdays','previous','poutcome']].values
 start = time.time()
 
-pop, pareto, logbook = gsvm.gsvm(nqubits=nqubits, depth=depth, nparameters=2,
+pop, pareto, logbook = gsvm.gsvm(nqubits=nqubits, depth=depth, nparameters=16,
                                     X=X, y=y, weights=[-1.0,1.0],
                                     mu=20,lambda_=10,ngen=20,mutpb=0.25,cxpb=.75)
 sim_time = time.time()
@@ -49,7 +48,8 @@ def ordenar_salidas_pareto(dataframe):
     return dataframe
 
 iot_salidas = ordenar_salidas_pareto(iot_result)
-
+print('---------Results--------')
+print(iot_salidas)
 def featuremap_performance(pop:str,nqubits:int) -> None:
     '''Returns the performance of a feature map on all of the dataset'''
 
@@ -87,24 +87,24 @@ def featuremap_performance(pop:str,nqubits:int) -> None:
     return None
 
 
-featuremap_performance(iot_salidas.circ[0],nqubits)
-print(f'Performance testing finished after {time.time()-start} seconds')
+#featuremap_performance(iot_salidas.circ[0],nqubits)
+#print(f'Performance testing finished after {time.time()-start} seconds')
 
 gen = logbook.select("gen")
-wc = logbook.chapters["wc"].select("min")
-acc = logbook.chapters["acc"].select("max")
+wc = logbook.chapters["wc"].select("media")
+acc = logbook.chapters["acc"].select("media")
 
 
 fig, ax1 = plt.subplots()
 plt.figure(dpi = 100)
-line1 = ax1.plot(gen, wc ,"b-", label="Min Weight Control")
+line1 = ax1.plot(gen, wc ,"b-", label="Avg Weight Control")
 ax1.set_xlabel("Generation")
 ax1.set_ylabel("Weight Control", color="b")
 for tl in ax1.get_yticklabels():
     tl.set_color("b")
 
 ax2 = ax1.twinx()
-line2 = ax2.plot(gen, acc, "r-", label="Max Accuracy")
+line2 = ax2.plot(gen, acc, "r-", label="Avg Accuracy")
 ax2.set_ylabel("Accuracy", color="r")
 for tl in ax2.get_yticklabels():
     tl.set_color("r")
