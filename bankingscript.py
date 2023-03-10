@@ -1,3 +1,6 @@
+from sklearnex import patch_sklearn
+patch_sklearn()
+
 import numpy as np
 import pandas as pd
 import time
@@ -10,7 +13,13 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, recall_sco
 
 
 nqubits = 8
-depth = 6
+depth = 14
+mu = 20
+lambda_ = 10
+ngen = 30
+mutpb = 0.35
+cxpb = 0.65
+
 output="bank_testdata.csv"
 df = pd.read_csv('bank_cleaned.csv')
 
@@ -23,7 +32,7 @@ start = time.time()
 
 pop, pareto, logbook = gsvm.gsvm(nqubits=nqubits, depth=depth, nparameters=16,
                                     X=X, y=y, weights=[-1.0,1.0],
-                                    mu=20,lambda_=10,ngen=20,mutpb=0.25,cxpb=.75)
+                                    mu=mu,lambda_=lambda_,ngen=ngen,mutpb=mutpb,cxpb=cxpb)
 sim_time = time.time()
 
 print(f'Simulation finished after {sim_time-start} seconds')
@@ -50,24 +59,29 @@ def ordenar_salidas_pareto(dataframe):
 iot_salidas = ordenar_salidas_pareto(iot_result)
 print('---------Results--------')
 print(iot_salidas)
+
+with open('bank_out.csv','a') as f:
+    fline = f'Nqubits,Depth,mu,lambda,ngen,mutpb,cxpb,Time\n'
+    line = f'{nqubits},{depth},{mu},{lambda_},{ngen},{mutpb},{cxpb},{str(time.ctime(time.time()))}\n'
+    f.write(fline)
+    f.write(line)
+    f.write('\n')
+    f.write(f'Simulation finished after {sim_time-start} seconds\n\n')
+
 def featuremap_performance(pop:str,nqubits:int) -> None:
     '''Returns the performance of a feature map on all of the dataset'''
-
     df_1 = df.sample(frac=1)
-    # bank_data = df.sample(n = 10000)
-
-    for i in range(4):
+    for i in range(8):
         if i == 7:
-            bank_data = df_1.iloc[60000:79844]
+            bank_data = df_1.iloc[70000:79844]
             break
-        bank_data = df_1.iloc[i*20000:i*20000+20000]
+        bank_data = df_1.iloc[i*10000:i*10000+10000]
 
         y = bank_data['y'].values
         X = bank_data[['age','job','marital','education','default','balance',
                     'housing','loan','contact','day','month','duration','campaign','pdays','previous','poutcome']].values
 
-
-        fitness_obj = fitness.Fitness(nqubits,2,X,y,debug=True)
+        fitness_obj = fitness.Fitness(nqubits,16,X,y,debug=True)
 
         training_features, training_labels, test_features, test_labels = fitness.Dataset(X,y)
 
@@ -81,14 +95,12 @@ def featuremap_performance(pop:str,nqubits:int) -> None:
         plt.show()
         recall = recall_score(test_labels, y_pred)
         acc  = accuracy_score(test_labels, y_pred)
-
-        print(f'String = {pop},\n accuracy = {acc}, recall = {recall} for {i+1}th section of the data')
-        
+        line = f'Accuracy = {acc}, Recall = {recall} for {i+1}th section of the data'
+        print(line)
+        with open('bank_out.csv','a') as f:
+            f.write(line)
+            f.write('\n')
     return None
-
-
-#featuremap_performance(iot_salidas.circ[0],nqubits)
-#print(f'Performance testing finished after {time.time()-start} seconds')
 
 gen = logbook.select("gen")
 wc = logbook.chapters["wc"].select("media")
@@ -112,3 +124,10 @@ for tl in ax2.get_yticklabels():
 lns = line1 + line2
 labs = [l.get_label() for l in lns]
 ax1.legend(lns, labs, loc="best")
+
+
+featuremap_performance(iot_salidas.circ[0],nqubits)
+print(f'Performance testing finished after {time.time()-sim_time} seconds')
+
+with open('bank_out.csv','a') as f:
+    f.write('\n')
