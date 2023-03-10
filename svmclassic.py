@@ -9,7 +9,7 @@ import time
 start = time.time()
 
 bank_data = pd.read_csv('bank_cleaned.csv')
-#bank_data = np.around(bank_data)
+bank_data = bank_data.sample(n=2000)
 
 y = bank_data['y'].values
 X = bank_data[['age','job','marital','education','default','balance',
@@ -30,6 +30,20 @@ model = SVC(cache_size=5000)
 model.fit(X_train, y_train)
 
 end = time.time()
+bank_data = pd.read_csv('bank_cleaned.csv')
+
+
+y = bank_data['y'].values
+X = bank_data[['age','job','marital','education','default','balance',
+               'housing','loan','contact','day','month','duration',
+               'campaign','pdays','previous','poutcome']].values
+
+X_train, X_test, y_train, y_test = train_test_split(X, y , test_size=0.5, random_state=12)
+ss_train = StandardScaler()
+X_train = ss_train.fit_transform(X_train)
+
+ss_test = StandardScaler()
+X_test = ss_test.fit_transform(X_test)
 # Make predictions
 predictions = model.predict(X_test)
 
