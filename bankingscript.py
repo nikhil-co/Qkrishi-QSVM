@@ -13,12 +13,12 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, recall_sco
 
 
 nqubits = 8
-depth = 14
+depth = 12
 mu = 20
 lambda_ = 10
 ngen = 30
-mutpb = 0.35
-cxpb = 0.65
+mutpb = 0.3
+cxpb = 0.7
 
 output="bank_testdata.csv"
 df = pd.read_csv('bank_cleaned.csv')
