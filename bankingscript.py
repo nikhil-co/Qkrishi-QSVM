@@ -11,12 +11,12 @@ import gsvm
 
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, recall_score, accuracy_score
 
-n_samples = 2000
-nqubits = 10
-depth = 8
-mu = 30
-lambda_ = 10
-ngen = 20
+n_samples = 1000
+nqubits = 6
+depth = 6
+mu = 100
+lambda_ = 30
+ngen = 500
 mutpb = 0.3
 cxpb = 0.7
 
@@ -131,5 +131,5 @@ print(f'Performance testing finished after {time.time()-sim_time} seconds')
 
 
 with open('bank_out.csv','a') as f:
-    f.write(f'Performance testing finished after {time.time()-sim_time} seconds')
-    f.write('-------------------------------------------------\n')
+    f.write(f'Performance testing finished after {time.time()-sim_time} seconds\n')
+    f.write('-------------------------------------------------\n\n')
