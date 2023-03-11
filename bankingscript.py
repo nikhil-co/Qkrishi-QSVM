@@ -11,12 +11,12 @@ import gsvm
 
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, recall_score, accuracy_score
 
-n_samples = 1000
+n_samples = 2000
 nqubits = 6
-depth = 6
+depth = 9
 mu = 100
-lambda_ = 30
-ngen = 500
+lambda_ = 25
+ngen = 20
 mutpb = 0.3
 cxpb = 0.7
 
@@ -124,7 +124,6 @@ for tl in ax2.get_yticklabels():
 lns = line1 + line2
 labs = [l.get_label() for l in lns]
 ax1.legend(lns, labs, loc="best")
-
 
 featuremap_performance(iot_salidas.circ[0],nqubits)
 print(f'Performance testing finished after {time.time()-sim_time} seconds')
