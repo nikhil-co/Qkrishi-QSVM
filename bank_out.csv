@@ -127,3 +127,81 @@ Accuracy = 0.808, Recall = 0.725 for 5th section of the data
 Accuracy = 0.806, Recall = 0.748015873015873 for 6th section of the data
 Accuracy = 0.793, Recall = 0.7101010101010101 for 7th section of the data
 
+Nqubits,Depth,mu,lambda,ngen,mutpb,cxpb,Time
+10,5,20,5,15,0.3,0.7,Sat Mar 11 09:19:58 2023
+
+Simulation finished after 188.0867462158203 seconds training on 1000 samples
+
+Accuracy = 0.7565, Recall = 0.6511156186612576 for 1th section of the data
+Accuracy = 0.743, Recall = 0.6491575817641229 for 2th section of the data
+Accuracy = 0.7735, Recall = 0.6923847695390781 for 3th section of the data
+Accuracy = 0.7435, Recall = 0.6531620553359684 for 4th section of the data
+Accuracy = 0.762, Recall = 0.6582406471183013 for 5th section of the data
+Accuracy = 0.754, Recall = 0.6650049850448654 for 6th section of the data
+Accuracy = 0.752, Recall = 0.6666666666666666 for 7th section of the data
+
+Nqubits,Depth,mu,lambda,ngen,mutpb,cxpb,Time
+10,7,20,5,15,0.3,0.7,Sat Mar 11 09:57:33 2023
+
+Simulation finished after 230.7914319038391 seconds training on 1000 samples
+
+Accuracy = 0.8055, Recall = 0.7382146439317954 for 1th section of the data
+Accuracy = 0.8015, Recall = 0.7268244575936884 for 2th section of the data
+Accuracy = 0.7915, Recall = 0.7380478087649402 for 3th section of the data
+Accuracy = 0.7975, Recall = 0.7199191102123357 for 4th section of the data
+Accuracy = 0.7985, Recall = 0.7450787401574803 for 5th section of the data
+Accuracy = 0.8075, Recall = 0.7255297679112008 for 6th section of the data
+Accuracy = 0.7995, Recall = 0.7381671701913394 for 7th section of the data
+-------------------------------------------------
+Nqubits,Depth,mu,lambda,ngen,mutpb,cxpb,Time
+10,7,20,5,30,0.3,0.7,Sat Mar 11 11:05:58 2023
+
+Simulation finished after 1336.6074228286743 seconds training on 2000 samples
+
+Accuracy = 0.817, Recall = 0.812625250501002 for 1th section of the data
+Accuracy = 0.8115, Recall = 0.7872127872127872 for 2th section of the data
+Accuracy = 0.817, Recall = 0.8 for 3th section of the data
+Accuracy = 0.811, Recall = 0.7992164544564153 for 4th section of the data
+Accuracy = 0.8095, Recall = 0.7782299084435402 for 5th section of the data
+Accuracy = 0.8245, Recall = 0.8022199798183652 for 6th section of the data
+Accuracy = 0.8155, Recall = 0.7888999008919723 for 7th section of the data
+-------------------------------------------------
+Nqubits,Depth,mu,lambda,ngen,mutpb,cxpb,Time
+10,8,20,5,30,0.3,0.7,Sat Mar 11 12:14:23 2023
+
+Simulation finished after 1262.8669378757477 seconds training on 2000 samples
+
+Accuracy = 0.8405, Recall = 0.8296593186372746 for 1th section of the data
+Accuracy = 0.821, Recall = 0.7962037962037962 for 2th section of the data
+Accuracy = 0.8345, Recall = 0.8196392785571143 for 3th section of the data
+Accuracy = 0.8395, Recall = 0.8081510934393639 for 4th section of the data
+Accuracy = 0.824, Recall = 0.8091528724440117 for 5th section of the data
+Accuracy = 0.8335, Recall = 0.7943262411347518 for 6th section of the data
+Accuracy = 0.82, Recall = 0.7925851703406813 for 7th section of the data
+-------------------------------------------------
+Nqubits,Depth,mu,lambda,ngen,mutpb,cxpb,Time
+10,8,20,10,30,0.3,0.7,Sat Mar 11 13:18:08 2023
+
+Simulation finished after 2457.093147277832 seconds training on 2000 samples
+
+Accuracy = 0.843, Recall = 0.8391608391608392 for 1th section of the data
+Accuracy = 0.853, Recall = 0.8516320474777448 for 2th section of the data
+Accuracy = 0.8365, Recall = 0.8283433133732535 for 3th section of the data
+Accuracy = 0.8325, Recall = 0.8180904522613065 for 4th section of the data
+Accuracy = 0.839, Recall = 0.8186372745490982 for 5th section of the data
+Accuracy = 0.837, Recall = 0.8331668331668332 for 6th section of the data
+Accuracy = 0.844, Recall = 0.8266533066132264 for 7th section of the data
+-------------------------------------------------
+Nqubits,Depth,mu,lambda,ngen,mutpb,cxpb,Time
+10,9,20,10,30,0.3,0.7,Sat Mar 11 14:31:08 2023
+
+Simulation finished after 2983.0806550979614 seconds training on 2000 samples
+
+Accuracy = 0.804, Recall = 0.8018018018018018 for 1th section of the data
+Accuracy = 0.8235, Recall = 0.8416334661354582 for 2th section of the data
+Accuracy = 0.812, Recall = 0.8137450199203188 for 3th section of the data
+Accuracy = 0.8275, Recall = 0.8232931726907631 for 4th section of the data
+Accuracy = 0.7985, Recall = 0.797 for 5th section of the data
+Accuracy = 0.831, Recall = 0.8341658341658341 for 6th section of the data
+Accuracy = 0.8185, Recall = 0.8068068068068068 for 7th section of the data
+Performance testing finished after {time.time()-sim_time} seconds-------------------------------------------------
