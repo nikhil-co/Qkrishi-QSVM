@@ -11,19 +11,19 @@ import gsvm
 
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, recall_score, accuracy_score
 
-n_samples = 2000
-nqubits = 6
-depth = 9
-mu = 100
-lambda_ = 25
+n_samples = 1000
+nqubits = 7
+depth = 7
+mu = 70
+lambda_ = 30
 ngen = 20
-mutpb = 0.3
+mutpb = 0.3 
 cxpb = 0.7
 
 output="bank_testdata.csv"
 df = pd.read_csv('bank_cleaned.csv')
 
-bank_data = df.sample(n=n_samples)
+bank_data = df.sample(n=n_samples,random_state=13)
 
 y = bank_data['y'].values
 X = bank_data[['age','job','marital','education','default','balance','housing','loan','contact',
@@ -45,7 +45,6 @@ with open(output, "w") as f:
         line = f'{ide},"{genes}",{gates},{acc}'
         f.write(line)
         f.write('\n')
-        #print(line)
 
 iot_result = pd.read_csv('bank_testdata.csv',header=None)
 
@@ -61,13 +60,14 @@ print('---------Results--------')
 print(iot_salidas)
 
 with open('bank_out.csv','a') as f:
+    f.write('-------------------------------------------------\n')
     fline = f'Nqubits,Depth,mu,lambda,ngen,mutpb,cxpb,Time\n'
     line = f'{nqubits},{depth},{mu},{lambda_},{ngen},{mutpb},{cxpb},{str(time.ctime(time.time()))}\n'
     f.write(fline)
     f.write(line)
     f.write('\n')
-    f.write(f'Simulation finished after {sim_time-start} seconds training on {n_samples} samples\n\n')
-
+    f.write(f'Simulation finished after {sim_time-start} seconds training on {n_samples} samples\n')
+    f.write(f'String - > {iot_salidas.circ[0]}\n\n')
 def featuremap_performance(pop:str,nqubits:int) -> None:
     '''Returns the performance of a feature map on all of the dataset'''
     df_1 = df.sample(frac=1)
@@ -124,6 +124,8 @@ for tl in ax2.get_yticklabels():
 lns = line1 + line2
 labs = [l.get_label() for l in lns]
 ax1.legend(lns, labs, loc="best")
+
+fig.savefig(f'{nqubits},{depth},{mu},{lambda_},{ngen},{n_samples}')
 
 featuremap_performance(iot_salidas.circ[0],nqubits)
 print(f'Performance testing finished after {time.time()-sim_time} seconds')
