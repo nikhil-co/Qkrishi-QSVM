@@ -17,8 +17,8 @@ depth = 5
 mu = 70
 lambda_ = 30
 ngen = 20
-mutpb = 0.3 
-cxpb = 0.7
+mutpb = .9
+cxpb = .1
 
 output="bank_testdata.csv"
 df = pd.read_csv('bank_cleaned.csv')
@@ -125,7 +125,7 @@ lns = line1 + line2
 labs = [l.get_label() for l in lns]
 ax1.legend(lns, labs, loc="best")
 
-fig.savefig(f'{nqubits},{depth},{mu},{lambda_},{ngen},{n_samples}')
+fig.savefig(f'{nqubits},{depth},{mu},{lambda_},{ngen},{n_samples},{mutpb}.png')
 
 featuremap_performance(iot_salidas.circ[0],nqubits)
 print(f'Performance testing finished after {time.time()-sim_time} seconds')
