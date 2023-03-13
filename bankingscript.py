@@ -13,7 +13,7 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, recall_sco
 
 n_samples = 1000
 nqubits = 7
-depth = 7
+depth = 5
 mu = 70
 lambda_ = 30
 ngen = 20
