@@ -9,7 +9,7 @@ import time
 start = time.time()
 
 bank_data = pd.read_csv('bank_cleaned.csv')
-bank_data = bank_data.sample(n=2000)
+bank_data = bank_data.sample(n=1000)
 
 y = bank_data['y'].values
 X = bank_data[['age','job','marital','education','default','balance',

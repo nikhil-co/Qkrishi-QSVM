@@ -12,13 +12,13 @@ import gsvm
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, recall_score, accuracy_score
 
 n_samples = 1000
-nqubits = 7
-depth = 5
-mu = 70
+nqubits = 8
+depth = 8
+mu = 100
 lambda_ = 30
-ngen = 20
-mutpb = .9
-cxpb = .1
+ngen = 30
+mutpb = .8
+cxpb = .2
 
 output="bank_testdata.csv"
 df = pd.read_csv('bank_cleaned.csv')
