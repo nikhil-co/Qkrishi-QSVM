@@ -9,7 +9,7 @@ import time
 start = time.time()
 
 bank_data = pd.read_csv('bank_cleaned.csv')
-bank_data = bank_data.sample(n=1000)
+bank_data = bank_data.sample(n=5000)
 
 y = bank_data['y'].values
 X = bank_data[['age','job','marital','education','default','balance',
@@ -37,6 +37,7 @@ y = bank_data['y'].values
 X = bank_data[['age','job','marital','education','default','balance',
                'housing','loan','contact','day','month','duration',
                'campaign','pdays','previous','poutcome']].values
+
 
 X_train, X_test, y_train, y_test = train_test_split(X, y , test_size=0.5, random_state=12)
 ss_train = StandardScaler()
