@@ -12,11 +12,11 @@ import gsvm
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, recall_score, accuracy_score
 
 n_samples = 1000
-nqubits = 8
-depth = 8
-mu = 100
-lambda_ = 30    
-ngen = 30
+nqubits = 6
+depth = 6
+mu = 10
+lambda_ = 3    
+ngen = 3
 mutpb = .8
 cxpb = .2
 
@@ -125,7 +125,7 @@ lns = line1 + line2
 labs = [l.get_label() for l in lns]
 ax1.legend(lns, labs, loc="best")
 
-fig.savefig(f'{nqubits},{depth},{mu},{lambda_},{ngen},{n_samples},{mutpb}.png')
+fig.savefig(f'evol_genplots/{nqubits},{depth},{mu},{lambda_},{ngen},{n_samples},{mutpb}.png')
 
 featuremap_performance(iot_salidas.circ[0],nqubits)
 print(f'Performance testing finished after {time.time()-sim_time} seconds')
