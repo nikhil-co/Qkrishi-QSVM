@@ -2,3 +2,5 @@
 scratchpad.py
 .vscode/launch.json
 scrathpad.ipynb
+data_y.csv
+encoded_data_x.csv

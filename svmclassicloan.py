@@ -9,11 +9,11 @@ import time
 start = time.time()
 
 bank_data = pd.read_csv('bank_cleaned.csv')
-bank_data = bank_data.sample(n=40000)
+bank_data = bank_data.sample(n=2000)
 
-y = bank_data['y'].values
+y = bank_data['loan'].values
 X = bank_data[['age','job','marital','education','default','balance',
-               'housing','loan','contact','day','month','duration',
+               'housing','y','contact','day','month','duration',
                'campaign','pdays','previous','poutcome']].values
 
 X_train, X_test, y_train, y_test = train_test_split(X, y , test_size=0.1, random_state=12)
@@ -34,9 +34,9 @@ end = time.time()
 bank_data = pd.read_csv('bank_cleaned.csv')
 
 
-y = bank_data['y'].values
+y = bank_data['loan'].values
 X = bank_data[['age','job','marital','education','default','balance',
-               'housing','loan','contact','day','month','duration',
+               'housing','y','contact','day','month','duration',
                'campaign','pdays','previous','poutcome']].values
 
 
