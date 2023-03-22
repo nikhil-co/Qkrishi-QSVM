@@ -23,9 +23,9 @@ X_train = ss_train.fit_transform(X_train)
 ss_test = StandardScaler()
 X_test = ss_test.fit_transform(X_test)
 
-from sklearn.svm import SVC,LinearSVC
-model = LinearSVC()
-# model = SVC(cache_size=5000)
+from sklearn.svm import SVC
+
+model = SVC(cache_size=5000)
 
 # Fit the classifier
 model.fit(X_train, y_train)
@@ -46,14 +46,6 @@ X_train = ss_train.fit_transform(X_train)
 
 ss_test = StandardScaler()
 X_test = ss_test.fit_transform(X_test)
-
-importance = model.coef_
-
-print(importance[0])
-
-plt.plot(importance[0])
-plt.xticks(np.arange(0,16,1))
-plt.show()
 
 
 # Make predictions
