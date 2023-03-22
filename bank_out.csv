@@ -759,3 +759,54 @@ Accuracy = 0.755, Recall = 0.7367367367367368 for 7th section of the data
 Performance testing finished after 38.09689164161682 seconds
 -------------------------------------------------
 
+-------------------------------------------------
+Nqubits,Depth,mu,lambda,ngen,mutpb,cxpb,Time
+6,6,50,15,10,0.7,0.3,Wed Mar 22 15:01:39 2023
+
+Simulation finished after 18.76015853881836 seconds training on 1000 samples
+String - > 110101101110010110010111011110111011010111011001110011001001110111001011000010000100111001011101010101101011011001001010000011111111110101001001000010100111111110100000011100101101
+
+Accuracy = 0.7665, Recall = 0.7635814889336016 for 1th section of the data
+Accuracy = 0.754, Recall = 0.7619521912350598 for 2th section of the data
+Accuracy = 0.778, Recall = 0.7564356435643564 for 3th section of the data
+Accuracy = 0.754, Recall = 0.7569169960474308 for 4th section of the data
+Accuracy = 0.7705, Recall = 0.7728194726166329 for 5th section of the data
+Accuracy = 0.772, Recall = 0.7419354838709677 for 6th section of the data
+Accuracy = 0.7625, Recall = 0.7641129032258065 for 7th section of the data
+Performance testing finished after 38.65072321891785 seconds
+-------------------------------------------------
+
+-------------------------------------------------
+Nqubits,Depth,mu,lambda,ngen,mutpb,cxpb,Time
+6,10,50,15,50,0.7,0.3,Wed Mar 22 15:04:16 2023
+
+Simulation finished after 87.49117517471313 seconds training on 1000 samples
+String - > 100111011011010101100001111001110000111100101111001111010001100111111011010010101010001100010110101110110101000011010001101100000000101001011111111011110100101100000010001110110110010001000101111001011011001000110001010101101110110000000000111001100011110111000010000010111011110111011110010100001101
+
+Accuracy = 0.7425, Recall = 0.6968781470292045 for 1th section of the data
+Accuracy = 0.7475, Recall = 0.7311507936507936 for 2th section of the data
+Accuracy = 0.7335, Recall = 0.6941649899396378 for 3th section of the data
+Accuracy = 0.732, Recall = 0.7051282051282052 for 4th section of the data
+Accuracy = 0.7255, Recall = 0.6878727634194831 for 5th section of the data
+Accuracy = 0.7455, Recall = 0.7002012072434608 for 6th section of the data
+Accuracy = 0.7645, Recall = 0.7362086258776329 for 7th section of the data
+Performance testing finished after 40.05944061279297 seconds
+-------------------------------------------------
+
+-------------------------------------------------
+Nqubits,Depth,mu,lambda,ngen,mutpb,cxpb,Time
+6,10,50,25,50,0.3,0.7,Wed Mar 22 15:43:20 2023
+
+Simulation finished after 127.12169408798218 seconds training on 1000 samples
+String - > 101010001111000111100101100001110011000110100101001111001001111100000001011010110001000110100000000010101111101011011000011101110111110001000100000011101011011011111010010000000000101011111010101101001011011101101101100001010001011010001010110101100110011110111101111011010111101110111110101011110001
+
+Accuracy = 0.8035, Recall = 0.7912087912087912 for 1th section of the data
+Accuracy = 0.8055, Recall = 0.8170128585558852 for 2th section of the data
+Accuracy = 0.8205, Recall = 0.8198019801980198 for 3th section of the data
+Accuracy = 0.782, Recall = 0.7864271457085829 for 4th section of the data
+Accuracy = 0.8045, Recall = 0.7768762677484787 for 5th section of the data
+Accuracy = 0.807, Recall = 0.7878172588832487 for 6th section of the data
+Accuracy = 0.795, Recall = 0.8193484698914116 for 7th section of the data
+Performance testing finished after 36.6600546836853 seconds
+-------------------------------------------------
+
