@@ -12,8 +12,8 @@ import gsvm
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, recall_score, accuracy_score
 
 n_samples = 1000
-nqubits = 6
-depth = 10
+nqubits = 8
+depth = 8
 mu = 50
 lambda_ = 25    
 ngen = 50
@@ -32,7 +32,7 @@ start = time.time()
 
 pop, pareto, logbook = gsvm.gsvm(nqubits=nqubits, depth=depth, nparameters=16,
                                     X=X, y=y, weights=[-1.0,1.0],
-                                    mu=mu,lambda_=lambda_,ngen=ngen,mutpb=mutpb,cxpb=cxpb)
+                                    mu=mu,lambda_=lambda_,ngen=ngen,mutpb=mutpb,cxpb=cxpb,debug=False)
 sim_time = time.time()
 
 print(f'Simulation finished after {sim_time-start} seconds')
