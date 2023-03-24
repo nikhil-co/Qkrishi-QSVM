@@ -11,12 +11,12 @@ import gsvm
 
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, recall_score, accuracy_score
 
-n_samples = 2000
-nqubits = 8
+n_samples = 1000
+nqubits = 9
 depth = 8
-mu = 50
-lambda_ = 25    
-ngen = 50
+mu = 30
+lambda_ = 15    
+ngen = 30
 mutpb = .3
 cxpb = .7
 
