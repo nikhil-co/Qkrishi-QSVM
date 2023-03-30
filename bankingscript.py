@@ -11,7 +11,7 @@ import gsvm
 
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, recall_score, accuracy_score
 
-n_samples = 1000
+n_samples = 2000
 nqubits = 9
 depth = 8
 mu = 30
@@ -74,7 +74,6 @@ def featuremap_performance(pop:str,nqubits:int) -> None:
     for i in range(8):
         if i == 7:
             bank_data = df_1.iloc[70000:79844]
-            break
         bank_data = df_1.iloc[i*10000:i*10000+10000]
 
         y = bank_data['y'].values
