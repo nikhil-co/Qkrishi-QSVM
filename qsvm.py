@@ -1,9 +1,9 @@
 from sklearn.svm import SVC
 
 class QSVM:
-    '''
-    Takes in the feature map we generated and outputs a classifier model and its fit.
-    '''
+    """
+    Takes in the feature map we generated and outputs a classifier model, and it's fit.
+    """
 
     def __init__(self, feature_map, train_features, train_label):
         def kernel(x1, x2):
