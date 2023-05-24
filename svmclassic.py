@@ -28,7 +28,7 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y, train_size=0.3, random
 
 
 def classifier():
-    model = SVC(kernel='linear', cache_size=5000)
+    model = SVC(kernel='rbf', cache_size=5000)
 
     # Fit the classifier
     model.fit(X_train, Y_train)

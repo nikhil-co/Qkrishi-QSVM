@@ -10,14 +10,14 @@ import qsvm
 import fitness
 import gsvm
 
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, recall_score, accuracy_score
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, roc_auc_score, classification_report
 
-n_samples = 2000
-nqubits = 9
-depth = 8
+n_samples = 4000
+nqubits = 6
+depth = 5
 mu = 20
 lambda_ = 7
-ngen = 10
+ngen = 5
 mutpb = .3
 cxpb = .7
 
@@ -28,10 +28,11 @@ bank_data = df.sample(n=n_samples, random_state=13)
 
 y = bank_data['y'].values
 X = bank_data[['age', 'job', 'marital', 'education', 'default', 'balance', 'housing', 'loan', 'contact',
-               'day', 'month', 'duration', 'campaign', 'pdays', 'previous', 'poutcome']].values
+               'day', 'month', 'campaign', 'pdays', 'previous', 'poutcome']].values
+
 start = time.time()
 
-pop, pareto, logbook = gsvm.gsvm(nqubits=nqubits, depth=depth, nparameters=16,
+pop, pareto, logbook = gsvm.gsvm(nqubits=nqubits, depth=depth, nparameters=X.shape[1],
                                  X=X, y=y, weights=[-1.0, 1.0],
                                  mu=mu, lambda_=lambda_, ngen=ngen, mutpb=mutpb, cxpb=cxpb, debug=False)
 sim_time = time.time()
@@ -61,16 +62,17 @@ def ordenar_salidas_pareto(dataframe):
 iot_salidas = ordenar_salidas_pareto(iot_result)
 print('---------Results--------')
 print(iot_salidas)
+print('\n\n')
 
-with open('bank_out.csv', 'a') as f:
-    f.write('-------------------------------------------------\n')
-    fline = f'Nqubits,Depth,mu,lambda,ngen,mutpb,cxpb,Time\n'
-    line = f'{nqubits},{depth},{mu},{lambda_},{ngen},{mutpb},{cxpb},{str(time.ctime(time.time()))}\n'
-    f.write(fline)
-    f.write(line)
-    f.write('\n')
-    f.write(f'Simulation finished after {sim_time - start} seconds training on {n_samples} samples\n')
-    f.write(f'String - > {iot_salidas.circ[0]}\n\n')
+# with open('bank_out.csv', 'a') as f:
+#     f.write('-------------------------------------------------\n')
+#     fline = f'Nqubits,Depth,mu,lambda,ngen,mutpb,cxpb,Time\n'
+#     line = f'{nqubits},{depth},{mu},{lambda_},{ngen},{mutpb},{cxpb},{str(time.ctime(time.time()))}\n'
+#     f.write(fline)
+#     f.write(line)
+#     f.write('\n')
+#     f.write(f'Simulation finished after {sim_time - start} seconds training on {n_samples} samples\n')
+#     f.write(f'String - > {iot_salidas.circ[0]}\n\n')
 
 
 def featuremap_performance(pop: str, nqubits: int) -> None:
@@ -107,34 +109,66 @@ def featuremap_performance(pop: str, nqubits: int) -> None:
             f.write('\n')
     return None
 
+# def dsd():
+#     gen = logbook.select("gen")
+#     wc = logbook.chapters["wc"].select("media")
+#     acc = logbook.chapters["acc"].select("media")
+#
+#     fig, ax1 = plt.subplots()
+#     plt.figure(dpi=100)
+#     line1 = ax1.plot(gen, wc, "b-", label="Avg Weight Control")
+#     ax1.set_xlabel("Generation")
+#     ax1.set_ylabel("Weight Control", color="b")
+#     for tl in ax1.get_yticklabels():
+#         tl.set_color("b")
+#
+#     ax2 = ax1.twinx()
+#     line2 = ax2.plot(gen, acc, "r-", label="Avg Accuracy")
+#     ax2.set_ylabel("Accuracy", color="r")
+#     for tl in ax2.get_yticklabels():
+#         tl.set_color("r")
+#
+#     lns = line1 + line2
+#     labs = [l.get_label() for l in lns]
+#     ax1.legend(lns, labs, loc="best")
+#
+#     fig.savefig(f'evol_genplots/{nqubits},{depth},{mu},{lambda_},{ngen},{n_samples},{mutpb}.png')
+#
+#     featuremap_performance(iot_salidas.circ[0], nqubits)
+#     print(f'Performance testing finished after {time.time() - sim_time} seconds')
+#
+#     with open('bank_out.csv', 'a') as f:
+#         f.write(f'Performance testing finished after {time.time() - sim_time} seconds\n')
+#         f.write('-------------------------------------------------\n\n')
 
-gen = logbook.select("gen")
-wc = logbook.chapters["wc"].select("media")
-acc = logbook.chapters["acc"].select("media")
 
-fig, ax1 = plt.subplots()
-plt.figure(dpi=100)
-line1 = ax1.plot(gen, wc, "b-", label="Avg Weight Control")
-ax1.set_xlabel("Generation")
-ax1.set_ylabel("Weight Control", color="b")
-for tl in ax1.get_yticklabels():
-    tl.set_color("b")
+pop = iot_salidas.circ[0]
 
-ax2 = ax1.twinx()
-line2 = ax2.plot(gen, acc, "r-", label="Avg Accuracy")
-ax2.set_ylabel("Accuracy", color="r")
-for tl in ax2.get_yticklabels():
-    tl.set_color("r")
+data = df.sample(frac=0.1, random_state=52)
 
-lns = line1 + line2
-labs = [l.get_label() for l in lns]
-ax1.legend(lns, labs, loc="best")
+features = data.drop(columns=['duration', 'y'])
+labels = data['y']
 
-fig.savefig(f'evol_genplots/{nqubits},{depth},{mu},{lambda_},{ngen},{n_samples},{mutpb}.png')
+X_train, Y_train, X_test, Y_test = fitness.Dataset(features, labels, test_size_split=0.4)
 
-featuremap_performance(iot_salidas.circ[0], nqubits)
-print(f'Performance testing finished after {time.time() - sim_time} seconds')
+fitness_obj = fitness.Fitness(nqubits, 16, X, y, debug=True)
 
-with open('bank_out.csv', 'a') as f:
-    f.write(f'Performance testing finished after {time.time() - sim_time} seconds\n')
-    f.write('-------------------------------------------------\n\n')
+start = time.time()/60
+
+print(f'Starting Classification at {time.ctime()}')
+
+clf = qsvm.QSVM(lambda parameters: fitness_obj.cc(pop, parameters)[0], X_train, Y_train)
+
+prediction = clf.predict(X_test)
+
+print(f'Classification done after {np.round((time.time()/60 - start),2)} mins.')
+
+# cm = confusion_matrix(Y_test, prediction)
+# ConfusionMatrixDisplay.from_predictions(Y_test, prediction)
+# plt.show()
+
+class_report = classification_report(Y_test, prediction)
+
+roc = roc_auc_score(Y_test, prediction)
+
+print(f'AUC ROC score: {roc}')
